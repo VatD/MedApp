@@ -5,6 +5,7 @@ import Register from './views/examples/Register.js';
 import Login from './views/examples/Login.js';
 import Tables from './views/examples/Tables.js';
 import Icons from './views/examples/Icons.js';
+import AddPatient from './views/examples/AddPatient.js';
 
 var routes = [
 	{
@@ -12,6 +13,20 @@ var routes = [
 		name: 'Dashboard',
 		icon: 'ni ni-tv-2 text-primary',
 		component: Index,
+		layout: '/admin',
+	},
+	{
+		path: '/profile',
+		name: 'Profile',
+		icon: 'ni ni-single-02 text-yellow',
+		component: Profile,
+		layout: '/admin',
+	},
+	{
+		path: '/addpatient',
+		name: 'Add Patient',
+		icon: 'fas fa-user-plus text-red',
+		component: AddPatient,
 		layout: '/admin',
 	},
 	{
@@ -26,13 +41,6 @@ var routes = [
 		name: 'Maps',
 		icon: 'ni ni-pin-3 text-orange',
 		component: Maps,
-		layout: '/admin',
-	},
-	{
-		path: '/profile',
-		name: 'Profile',
-		icon: 'ni ni-single-02 text-yellow',
-		component: Profile,
 		layout: '/admin',
 	},
 	{
