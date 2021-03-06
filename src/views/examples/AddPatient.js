@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import {
-	Button,
 	Card,
 	CardHeader,
 	CardBody,
-	FormGroup,
-	Form,
-	Input,
 	Container,
 	Row,
 	Col,
 	UncontrolledAlert,
 } from 'reactstrap';
 
-import AddPatientForm from '../../components/Forms/AddPatientFrom';
+import AddPatientForm from '../../components/Forms/AddPatientForm';
 import GenericHeader from '../../components/Headers/GenericHeader';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
