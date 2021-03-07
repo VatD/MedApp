@@ -96,33 +96,33 @@ function VideoChatPatient(props) {
 		setConnected(false);
 	};
 
-	const joinRoom = async () => {
-		try {
-			const { data: res } = await axios.post(
-				`${videoChatEndpoint}/patients/connect/chat`,
-				{
-					room: roomName,
-				}
-			);
-			getPreview();
-			setPreview(true);
-			const accessToken = res.token;
-			room = await connect(accessToken, {
-				name: roomName,
-				tracks,
-			});
-			setConnected(true);
-			setUp();
-		} catch (e) {
-			console.log('Failed');
-			setFailed(true);
-			return;
-		}
-	};
-
 	useEffect(() => {
-		joinRoom();
-	}, [localRef]);
+		const joinRoom = async () => {
+			try {
+				const { data: res } = await axios.post(
+					`${videoChatEndpoint}/patients/connect/chat`,
+					{
+						room: roomName,
+					}
+				);
+				getPreview();
+				setPreview(true);
+				const accessToken = res.token;
+				room = await connect(accessToken, {
+					name: roomName,
+					tracks,
+				});
+				setConnected(true);
+				setUp();
+			} catch (e) {
+				console.log('Failed');
+				setFailed(true);
+				return;
+			}
+		};
+
+		if (localRef.current !== null && roomName) joinRoom();
+	}, [localRef, roomName]);
 
 	return (
 		<main className={styles.holdingContainer}>

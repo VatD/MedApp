@@ -20,8 +20,8 @@ var tracks;
 
 function VideoChatDoctor(props) {
 	const id = props.match.params.id;
-	// const jwtUserToken = useAuthContext();
-	const jwtUserToken = { token: 'abc' };
+	const jwtUserToken = useAuthContext();
+	// const jwtUserToken = { token: 'abc' };
 	const remoteRef = useRef(null);
 	const localRef = useRef(null);
 	const [preview, setPreview] = useState(false);
@@ -48,34 +48,6 @@ function VideoChatDoctor(props) {
 			localRef.current.appendChild(
 				document.createTextNode("Can't show Preview")
 			);
-		}
-	};
-
-	//var room;
-	const createRoom = async () => {
-		try {
-			console.log(id);
-			const { data: res } = await axios.post(
-				`${videoChatEndpoint}/doctors/connect/chat`,
-				{ patientID: id },
-				{ headers: { Authorization: `Bearer ${jwtUserToken}` } }
-			);
-			await getPreview();
-			setPreview(true);
-			// console.log(res);
-			const accessToken = res.token;
-			const RoomName = res.room;
-			console.log('ROOOM:::::', RoomName);
-			room = await connect(accessToken, {
-				name: RoomName,
-				tracks,
-			});
-			setConnected(true);
-			setUp();
-		} catch (e) {
-			setFailed(true);
-			console.log('Failed');
-			return <h1>Couldn't connect you!</h1>;
 		}
 	};
 
@@ -144,7 +116,7 @@ function VideoChatDoctor(props) {
 
 	const handleSubmit = async () => {
 		try {
-			const { data } = await axios.post(
+			await axios.post(
 				`${videoChatEndpoint}/records/create`,
 				{
 					description: notes,
@@ -180,8 +152,33 @@ function VideoChatDoctor(props) {
 	};
 
 	useEffect(() => {
-		createRoom();
-	}, [localRef]);
+		const createRoom = async () => {
+			try {
+				console.log(id);
+				const { data: res } = await axios.post(
+					`${videoChatEndpoint}/doctors/connect/chat`,
+					{ patientID: id },
+					{ headers: { Authorization: `Bearer ${jwtUserToken}` } }
+				);
+				await getPreview();
+				setPreview(true);
+				// console.log(res);
+				const accessToken = res.token;
+				const RoomName = res.room;
+				console.log('ROOOM:::::', RoomName);
+				room = await connect(accessToken, {
+					name: RoomName,
+					tracks,
+				});
+				setConnected(true);
+				setUp();
+			} catch (e) {
+				setFailed(true);
+				console.log('Failed');
+			}
+		};
+		if (localRef.current !== null && id) createRoom();
+	}, [localRef, id, jwtUserToken]);
 
 	return jwtUserToken.fetching ? (
 		<main className={styles.loadingDiv}>
