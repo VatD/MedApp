@@ -23,10 +23,10 @@ const Profile = () => {
 	console.log(user);
 
 	const aboutPresent = user.userObject[0].doctor.about;
-    let about;
-    if (aboutPresent !== "") {
-      about = <p>{user.userObject[0].doctor.about}</p>;
-    }
+    // let about;
+    // if (aboutPresent !== "") {
+    //   about = <p>{user.userObject[0].doctor.about}</p>;
+    // }
 	const insPresent = user.userObject[0].doctor.hospital;
     let institute;
     if (insPresent !== "") {
