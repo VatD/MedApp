@@ -16,34 +16,34 @@ const Routes = () => {
 
 	if (!fetching && user) {
 		return (
-			<>
+			<Switch>
 				<Route path='/admin' render={(props) => <AdminLayout {...props} />} />
 				<Route
 					path='/connect/doctor/:id'
 					render={(props) => <VideoChatDoctor {...props} />}
 				/>
 				<Route path='/' render={() => <Redirect to='/admin' />} />
-			</>
+			</Switch>
 		);
 	} else if (!fetching && !user) {
 		return (
-			<>
+			<Switch>
 				<Route path='/auth' render={(props) => <AuthLayout {...props} />} />
 				<Route path='/' render={() => <Redirect to='/auth' />} />
-			</>
+			</Switch>
 		);
 	}
 
 	return (
-		<>
+		<Switch>
 			<Route path='/admin' render={(props) => <AdminLayout {...props} />} />
 			<Route path='/auth' render={(props) => <AuthLayout {...props} />} />
 			<Route
 				path='/connect/doctor/:id'
 				render={(props) => <VideoChatDoctor {...props} />}
 			/>
-			<Route exact path='/' render={() => <Redirect to='/admin' />} />
-		</>
+			<Route path='/' render={() => <Redirect to='/admin' />} />
+		</Switch>
 	);
 };
 
