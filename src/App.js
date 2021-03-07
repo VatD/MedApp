@@ -22,10 +22,6 @@ const Routes = () => {
 					path='/connect/doctor/:id'
 					render={(props) => <VideoChatDoctor {...props} />}
 				/>
-				<Route
-					path='/connect/patient/:roomName'
-					render={(props) => <VideoChatPatient {...props} />}
-				/>
 				<Route path='/' render={() => <Redirect to='/admin' />} />
 			</>
 		);
@@ -46,10 +42,6 @@ const Routes = () => {
 				path='/connect/doctor/:id'
 				render={(props) => <VideoChatDoctor {...props} />}
 			/>
-			<Route
-				path='/connect/patient/:roomName'
-				render={(props) => <VideoChatPatient {...props} />}
-			/>
 			<Route exact path='/' render={() => <Redirect to='/admin' />} />
 		</>
 	);
@@ -59,6 +51,10 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Switch>
+				<Route
+					path='/connect/patient/:roomName'
+					render={(props) => <VideoChatPatient {...props} />}
+				/>
 				<Routes />
 			</Switch>
 		</BrowserRouter>
