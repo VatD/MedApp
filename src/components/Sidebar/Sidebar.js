@@ -28,10 +28,13 @@ import {
 	Row,
 	Col,
 } from 'reactstrap';
+import { useAuthContext, useMutateAuthContext } from '../../context/auth';
 
 var ps;
 
 const Sidebar = (props) => {
+	const { updateAuthState } = useMutateAuthContext();
+	const { rememberMe } = useAuthContext();
 	const [collapseOpen, setCollapseOpen] = useState();
 	// verifies if routeName is the one active (in browser input)
 	const activeRoute = (routeName) => {
@@ -155,7 +158,12 @@ const Sidebar = (props) => {
 								<span>Support</span>
 							</DropdownItem>
 							<DropdownItem divider />
-							<DropdownItem href='#pablo' onClick={(e) => e.preventDefault()}>
+							<DropdownItem
+								onClick={(e) => {
+									e.preventDefault();
+									updateAuthState({ user: null, token: null }, rememberMe);
+								}}
+							>
 								<i className='ni ni-user-run' />
 								<span>Logout</span>
 							</DropdownItem>

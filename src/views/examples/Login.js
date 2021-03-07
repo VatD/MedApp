@@ -83,13 +83,14 @@ const Login = () => {
 							}}
 							validationSchema={Yup.object({
 								identifier: Yup.string()
-									.min(3, 'Length must be atleast 3')
-									.required('Required'),
+									.required('Required')
+									.min(3, 'Length must be atleast 3'),
 								password: Yup.string()
-									.min(6, 'Length must be atleast 6')
-									.required('Required'),
+									.required('Required')
+									.min(6, 'Length must be atleast 6'),
 								rememberMe: Yup.bool().required('Required'),
 							})}
+							validateOnMount={true}
 							onSubmit={async (values, { setSubmitting }) => {
 								setRememberMe(values.rememberMe);
 								const { user, error } = await login({

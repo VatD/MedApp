@@ -1,14 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 
 import { me } from '../services/user';
+import userdoctor from '../utils/userdoctor';
 
 const AuthContext = React.createContext();
 const MutateAuthContext = React.createContext();
 
 function AuthProvider({ children }) {
 	const [authState, setAuthState] = useState({
-		token: localStorage.getItem('token') || null,
-		user: JSON.parse(localStorage.getItem('user')) || null,
+		token: localStorage.getItem('token') || '',
+		user: JSON.parse(localStorage.getItem('user')) || userdoctor,
 	});
 
 	const [fetching, setFetching] = useState(true);
@@ -25,6 +26,7 @@ function AuthProvider({ children }) {
 	useEffect(() => {
 		const token = localStorage.getItem('token');
 		if (!token) {
+			setAuthState({ token: null, user: null });
 			setFetching(false);
 			return;
 		}

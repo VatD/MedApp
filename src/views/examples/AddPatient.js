@@ -54,6 +54,7 @@ const AddPatient = () => {
 							</CardHeader>
 							<CardBody>
 								<Formik
+									validateOnMount={true}
 									initialValues={{
 										firstName: '',
 										lastName: '',

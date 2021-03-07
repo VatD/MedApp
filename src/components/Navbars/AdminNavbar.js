@@ -12,7 +12,11 @@ import {
 	Media,
 } from 'reactstrap';
 
+import { useAuthContext, useMutateAuthContext } from '../../context/auth';
+
 const AdminNavbar = (props) => {
+	const { updateAuthState } = useMutateAuthContext();
+	const { rememberMe } = useAuthContext();
 	return (
 		<>
 			<Navbar className='navbar-top navbar-dark' expand='md' id='navbar-main'>
@@ -58,7 +62,12 @@ const AdminNavbar = (props) => {
 									<span>Support</span>
 								</DropdownItem>
 								<DropdownItem divider />
-								<DropdownItem href='#pablo' onClick={(e) => e.preventDefault()}>
+								<DropdownItem
+									onClick={(e) => {
+										e.preventDefault();
+										updateAuthState({ user: null, token: null }, rememberMe);
+									}}
+								>
 									<i className='ni ni-user-run' />
 									<span>Logout</span>
 								</DropdownItem>

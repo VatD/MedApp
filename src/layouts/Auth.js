@@ -45,7 +45,7 @@ const Auth = (props) => {
 		<>
 			<div className='main-content' ref={mainContent}>
 				<AuthNavbar />
-				<div className='header bg-gradient-info py-5'>
+				<div className='header bg-gradient-info py-6'>
 					<Container>
 						<div className='header-body text-center mb-7'>
 							<Row className='justify-content-center'>
