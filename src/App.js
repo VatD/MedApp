@@ -9,22 +9,53 @@ import AuthLayout from './layouts/Auth.js';
 
 import VideoChatDoctor from './layouts/VideoChatDoctor';
 import VideoChatPatient from './layouts/VideoChatPatient';
+import { useAuthContext } from './context/auth';
+
+const Routes = () => {
+	const { user, fetching } = useAuthContext();
+
+	if (!fetching && user) {
+		return (
+			<Switch>
+				<Route path='/admin' render={(props) => <AdminLayout {...props} />} />
+				<Route
+					path='/connect/doctor/:id'
+					render={(props) => <VideoChatDoctor {...props} />}
+				/>
+				<Route path='/' render={() => <Redirect to='/admin' />} />
+			</Switch>
+		);
+	} else if (!fetching && !user) {
+		return (
+			<Switch>
+				<Route path='/auth' render={(props) => <AuthLayout {...props} />} />
+				<Route path='/' render={() => <Redirect to='/auth' />} />
+			</Switch>
+		);
+	}
+
+	return (
+		<Switch>
+			<Route path='/admin' render={(props) => <AdminLayout {...props} />} />
+			<Route path='/auth' render={(props) => <AuthLayout {...props} />} />
+			<Route
+				path='/connect/doctor/:id'
+				render={(props) => <VideoChatDoctor {...props} />}
+			/>
+			<Route path='/' render={() => <Redirect to='/admin' />} />
+		</Switch>
+	);
+};
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route path='/admin' render={(props) => <AdminLayout {...props} />} />
-				<Route path='/auth' render={(props) => <AuthLayout {...props} />} />
-				<Route
-					path='/connect/doctor/:id'
-					render={(props) => <VideoChatDoctor {...props} />}
-				/>
 				<Route
 					path='/connect/patient/:roomName'
 					render={(props) => <VideoChatPatient {...props} />}
 				/>
-				<Redirect from='/' to='/admin/index' />
+				<Routes />
 			</Switch>
 		</BrowserRouter>
 	);

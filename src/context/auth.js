@@ -14,8 +14,8 @@ function AuthProvider({ children }) {
 	const [fetching, setFetching] = useState(true);
 	const [rememberMe, setRememberMe] = useState(true);
 
-	const updateAuthState = (newAuthState) => {
-		if (rememberMe) {
+	let updateAuthState = (newAuthState, remember) => {
+		if (remember) {
 			localStorage.setItem('token', newAuthState.token);
 			localStorage.setItem('user', JSON.stringify(newAuthState.user));
 		}

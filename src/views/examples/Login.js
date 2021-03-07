@@ -98,7 +98,10 @@ const Login = () => {
 								});
 								setSubmitting(false);
 								if (user) {
-									updateAuthState({ user: user.user, token: user.jwt });
+									updateAuthState(
+										{ user: user.user, token: user.jwt },
+										values.rememberMe
+									);
 									history.replace('/admin/index');
 									return;
 								}
