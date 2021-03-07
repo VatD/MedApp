@@ -8,6 +8,8 @@ import AdminLayout from './layouts/Admin.js';
 import AuthLayout from './layouts/Auth.js';
 
 import { AuthProvider } from './context/auth';
+import VideoChatDoctor from './layouts/VideoChatDoctor';
+import VideoChatPatient from './layouts/VideoChatPatient';
 
 function App() {
 	return (
@@ -22,6 +24,18 @@ function App() {
 					)}
 				/>
 				<Route path='/auth' render={(props) => <AuthLayout {...props} />} />
+				<Route
+					path='/connect/doctor/:id'
+					render={(props) => (
+						<AuthProvider>
+							<VideoChatDoctor {...props} />
+						</AuthProvider>
+					)}
+				/>
+				<Route
+					path='/connect/patient/:roomName'
+					render={(props) => <VideoChatPatient {...props} />}
+				/>
 				<Redirect from='/' to='/admin/index' />
 			</Switch>
 		</BrowserRouter>
