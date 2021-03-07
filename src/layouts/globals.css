@@ -1,0 +1,7 @@
+#remote-container > video {
+	width: 100%;
+}
+#local-container > video {
+	width: 100px;
+	height: 80px;
+}

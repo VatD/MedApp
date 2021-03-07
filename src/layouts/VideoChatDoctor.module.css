@@ -1,0 +1,109 @@
+.loadingDiv {
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	align-items: center;
+	justify-content: center;
+}
+
+.holdingContainer {
+	display: grid;
+	align-items: center;
+	grid-template-columns: 65vw 1fr;
+	background-color: var(--secondary);
+	padding: 0;
+	height: 100vh;
+	grid-gap: 10px;
+}
+
+.videoContainer {
+	position: relative;
+	height: 98vh;
+	/* display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: stretch;
+	width: 100%; */
+}
+
+.localContainer {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	right: 0;
+	width: 110px;
+	height: 70px;
+	border: 3px solid black;
+	border-radius: 5px;
+	background-color: black;
+}
+
+.remoteContainer {
+	background-color: gray;
+	height: calc(98vh - 80px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	width: 100%;
+}
+
+.toolbar:hover {
+	opacity: 1;
+}
+
+.remoteContainer:hover + .toolbar {
+	opacity: 1;
+	transition: opacity 0.5s ease-in 0s;
+}
+
+.toolbar {
+	transition: none;
+	opacity: 0;
+	position: absolute;
+	z-index: 99;
+	background-color: white;
+	bottom: 0;
+	left: 0;
+	margin-left: 0;
+	margin-bottom: 0;
+	width: 100%;
+	height: 60px;
+	border: 2px solid black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.notesContainer {
+	display: flex;
+	height: 100vh;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--secondary);
+	border-left: 1px solid black;
+	box-shadow: -2px 2px 5px black;
+}
+
+.notesForm {
+	height: 100%;
+	width: 100%;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.notesLabel {
+	text-align: left;
+	align-self: start;
+	font-size: 2rem;
+}
+
+.notesInput {
+	height: 70% !important;
+	width: 100%;
+	resize: none;
+}
