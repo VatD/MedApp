@@ -22,7 +22,7 @@ const Profile = () => {
 	const {user} = useAuthContext();
 	console.log(user);
 
-	const aboutPresent = user.userObject[0].doctor.about;
+	//const aboutPresent = user.userObject[0].doctor.about;
     // let about;
     // if (aboutPresent !== "") {
     //   about = <p>{user.userObject[0].doctor.about}</p>;
