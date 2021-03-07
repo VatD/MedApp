@@ -6,7 +6,7 @@ import {
 	Container,
 	Row,
 	Col,
-	UncontrolledAlert,
+	Alert,
 } from 'reactstrap';
 
 import AddPatientForm from '../../components/Forms/AddPatientForm';
@@ -17,16 +17,16 @@ import { createPatient } from '../../services/patient';
 import { useAuthContext } from '../../context/auth';
 import { useHistory } from 'react-router';
 
-const FailureAlert = ({ message }) => {
+const FailureAlert = ({ message, cb }) => {
 	return (
-		<UncontrolledAlert className='mt-3' color='danger' fade={true}>
+		<Alert onClick={cb} className='mt-3' color='danger' fade={false}>
 			<span className='alert-inner--icon'>
 				<i className='fas fa-times' />
 			</span>{' '}
 			<span className='alert-inner--text'>
 				<strong>Error!</strong> {message}
 			</span>
-		</UncontrolledAlert>
+		</Alert>
 	);
 };
 
@@ -112,7 +112,9 @@ const AddPatient = () => {
 						</Card>
 					</Col>
 				</Row>
-				{error && <FailureAlert message={error} />}
+				{error ? (
+					<FailureAlert message={error} cb={() => setError(null)} />
+				) : null}
 			</Container>
 		</>
 	);

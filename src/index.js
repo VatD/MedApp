@@ -4,11 +4,15 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 
+import { AuthProvider } from './context/auth';
+
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<AuthProvider>
+			<App />
+		</AuthProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

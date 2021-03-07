@@ -82,7 +82,8 @@ function AddPatientForm({ formik }) {
 									value={formik.values.DOB}
 									autoFocus={false}
 									onChange={(value, formattedValue) => {
-										formik.setFieldValue('DOB', value);
+										if (value) formik.setFieldValue('DOB', value);
+										else formik.setFieldValue('DOB', '');
 									}}
 								/>
 							</div>

@@ -13,4 +13,16 @@ const me = async (token) => {
 	}
 };
 
-export { me };
+const login = async ({ identifier, password }) => {
+	try {
+		const { data: user } = await axios.post(`/auth/local`, {
+			identifier,
+			password,
+		});
+		return { user };
+	} catch (error) {
+		return { error };
+	}
+};
+
+export { me, login };

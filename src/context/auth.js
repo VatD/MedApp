@@ -7,14 +7,18 @@ const MutateAuthContext = React.createContext();
 
 function AuthProvider({ children }) {
 	const [authState, setAuthState] = useState({
-		user: null,
-		token: null,
+		token: localStorage.getItem('token') || null,
+		user: JSON.parse(localStorage.getItem('user')) || null,
 	});
 
 	const [fetching, setFetching] = useState(true);
+	const [rememberMe, setRememberMe] = useState(true);
 
 	const updateAuthState = (newAuthState) => {
-		localStorage.setItem('token', newAuthState.token);
+		if (rememberMe) {
+			localStorage.setItem('token', newAuthState.token);
+			localStorage.setItem('user', JSON.stringify(newAuthState.user));
+		}
 		setAuthState(newAuthState);
 	};
 
@@ -27,9 +31,12 @@ function AuthProvider({ children }) {
 		const fetchMe = async (token) => {
 			const { user } = await me(token);
 			if (user) {
+				localStorage.setItem('user', JSON.stringify(user));
 				setAuthState({ user, token });
 			} else {
 				localStorage.removeItem('token');
+				localStorage.removeItem('user');
+				setAuthState({ token: null, user: null });
 			}
 			setFetching(false);
 		};
@@ -37,8 +44,8 @@ function AuthProvider({ children }) {
 	}, []);
 
 	return (
-		<AuthContext.Provider value={{ ...authState, fetching }}>
-			<MutateAuthContext.Provider value={updateAuthState}>
+		<AuthContext.Provider value={{ ...authState, fetching, rememberMe }}>
+			<MutateAuthContext.Provider value={{ updateAuthState, setRememberMe }}>
 				{children}
 			</MutateAuthContext.Provider>
 		</AuthContext.Provider>
