@@ -85,7 +85,7 @@ function VideoChatDoctor(props) {
 		});
 
 		room.participants.forEach((participant) => {
-			console.log('I detected a participant that was already present');
+			// console.log('I detected a participant that was already present');
 			participant.tracks.forEach((publication) => {
 				if (publication.isSubscribed) {
 					const track = publication.track;
@@ -102,7 +102,7 @@ function VideoChatDoctor(props) {
 	};
 
 	const stopCall = () => {
-		console.log('disconnecting');
+		// console.log('disconnecting');
 		room.disconnect();
 		room.localParticipant.unpublishTrack(localVideoTrack);
 		localAudioTrack.detach();
@@ -154,18 +154,18 @@ function VideoChatDoctor(props) {
 	useEffect(() => {
 		const createRoom = async () => {
 			try {
-				console.log(id);
+				// console.log(id);
 				const { data: res } = await axios.post(
 					`${videoChatEndpoint}/doctors/connect/chat`,
 					{ patientID: id },
-					{ headers: { Authorization: `Bearer ${jwtUserToken}` } }
+					{ headers: { Authorization: `Bearer ${jwtUserToken.token}` } }
 				);
 				await getPreview();
 				setPreview(true);
 				// console.log(res);
 				const accessToken = res.token;
 				const RoomName = res.room;
-				console.log('ROOOM:::::', RoomName);
+				// console.log('ROOOM:::::', RoomName);
 				room = await connect(accessToken, {
 					name: RoomName,
 					tracks,
@@ -177,8 +177,8 @@ function VideoChatDoctor(props) {
 				console.log('Failed');
 			}
 		};
-		if (localRef.current !== null && id) createRoom();
-	}, [localRef, id, jwtUserToken]);
+		if (localRef.current !== null && id && jwtUserToken.token) createRoom();
+	}, [localRef, id, jwtUserToken.token]);
 
 	return jwtUserToken.fetching ? (
 		<main className={styles.loadingDiv}>
@@ -198,63 +198,50 @@ function VideoChatDoctor(props) {
 				pauseOnHover={false}
 			/>
 			<div className={styles.holdingContainer}>
-				{!connected && !failed ? (
-					<div className={styles.videoContainer}>
-						<img src={Loading} alt='loading...' />
-					</div>
-				) : (
-					<div className={styles.videoContainer}>
-						{failed ? (
-							<h1
-								className='display-1 text-white bg-gradient-danger'
-								style={{ textAlign: 'center' }}
-							>
-								Can't Connect You!
-							</h1>
-						) : (
-							<h1
-								className='display-1 text-white bg-gradient-info'
-								style={{ textAlign: 'center' }}
-							>
-								You are connected!
-							</h1>
-						)}
-						<div
-							id='remote-container'
-							className={styles.remoteContainer}
-							ref={remoteRef}
+				<div className={styles.videoContainer}>
+					{failed ? (
+						<h1
+							className='display-1 text-white bg-gradient-danger'
+							style={{ textAlign: 'center' }}
 						>
-							{!otherParticipantConnected && !failed ? (
-								<img src={LoadingGrey} alt='loading' />
-							) : null}
-						</div>
-						<div className={`${styles.toolbar}`}>
-							{connected ? (
-								<button
-									onClick={() => stopCall()}
-									style={{
-										backgroundColor: 'red',
-										borderRadius: '50%',
-										width: '50px',
-										height: '50px',
-									}}
-								>
-									<FontAwesomeIcon
-										icon={faPhoneSlash}
-										style={{ color: 'white' }}
-									/>
-								</button>
-							) : null}
-						</div>
-
-						<div
-							id='local-container'
-							className={styles.localContainer}
-							ref={localRef}
-							style={preview ? {} : { opacity: '0' }}
-						></div>
+							Can't Connect You!
+						</h1>
+					) : null}
+					<div
+						id='remote-container'
+						className={styles.remoteContainer}
+						ref={remoteRef}
+					>
+						{!otherParticipantConnected && !failed ? (
+							<img src={LoadingGrey} alt='loading' />
+						) : null}
 					</div>
-				)}
+					<div className={`${styles.toolbar}`}>
+						{connected ? (
+							<button
+								onClick={() => stopCall()}
+								style={{
+									backgroundColor: 'red',
+									borderRadius: '50%',
+									width: '50px',
+									height: '50px',
+								}}
+							>
+								<FontAwesomeIcon
+									icon={faPhoneSlash}
+									style={{ color: 'white' }}
+								/>
+							</button>
+						) : null}
+					</div>
+
+					<div
+						id='local-container'
+						className={styles.localContainer}
+						ref={localRef}
+						style={preview ? {} : { opacity: '0' }}
+					></div>
+				</div>
 				<div className={styles.notesContainer}>
 					<form className={styles.notesForm}>
 						<label
