@@ -1,5 +1,5 @@
 import React from 'react';
-import {useAuthContext} from '../../context/auth';
+import { useAuthContext } from '../../context/auth';
 
 import {
 	// Button,
@@ -16,27 +16,25 @@ import {
 
 import UserHeader from '../../components/Headers/UserHeader.js';
 
-
-
 const Profile = () => {
-	const {user} = useAuthContext();
+	const { user } = useAuthContext();
 	console.log(user);
 
 	//const aboutPresent = user.userObject[0].doctor.about;
-    // let about;
-    // if (aboutPresent !== "") {
-    //   about = <p>{user.userObject[0].doctor.about}</p>;
-    // }
+	// let about;
+	// if (aboutPresent !== "") {
+	//   about = <p>{user.userObject[0].doctor.about}</p>;
+	// }
 	const insPresent = user.userObject[0].doctor.hospital;
-    let institute;
-    if (insPresent !== "") {
-      institute = (
-	  			<div>
-	  				<i className='ni education_hat mr-2' />
-	  				{insPresent}
-  				</div>
-  		);
-    }
+	let institute;
+	if (insPresent !== '') {
+		institute = (
+			<div>
+				<i className='ni education_hat mr-2' />
+				{insPresent}
+			</div>
+		);
+	}
 	return (
 		<>
 			<UserHeader />
@@ -47,12 +45,15 @@ const Profile = () => {
 							<Row className='justify-content-center'>
 								<Col className='order-lg-2' lg='3'>
 									<div className='card-profile-image'>
-										<a href='#pablo' onClick={(e) => e.preventDefault()}>
+										<a
+											href='#pablo'
+											onClick={(e) => e.preventDefault()}
+										>
 											<img
 												alt='...'
 												className='rounded-circle'
 												src={
-													require('../../assets/img/theme/kaushalShah.jpg')
+													require('../../assets/img/user-tie-solid.svg')
 														.default
 												}
 											/>
@@ -60,8 +61,7 @@ const Profile = () => {
 									</div>
 								</Col>
 							</Row>
-							<CardHeader className='text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4'>
-							</CardHeader>
+							<CardHeader className='text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4'></CardHeader>
 							<CardBody className='pt-0 pt-md-4'>
 								<Row>
 									<div className='col'>
@@ -83,8 +83,11 @@ const Profile = () => {
 								</Row>
 								<div className='text-center mt-5'>
 									<h3>
-										Dr. {user.userObject[0].doctor.firstName} {user.userObject[0].doctor.lastName}
-										<span className='font-weight-light'>, {user.userObject[0].doctor.age}</span>
+										Dr. {user.userObject[0].doctor.firstName}{' '}
+										{user.userObject[0].doctor.lastName}
+										<span className='font-weight-light'>
+											, {user.userObject[0].doctor.age}
+										</span>
 									</h3>
 									<div className='h5 font-weight-300'>
 										<i className='ni location_pin mr-2' />
@@ -128,7 +131,7 @@ const Profile = () => {
 									</Col> */}
 								</Row>
 							</CardHeader>
-							<CardBody id="profile">
+							<CardBody id='profile'>
 								<Form>
 									<h6 className='heading-small text-muted mb-4'>
 										User information
@@ -146,7 +149,7 @@ const Profile = () => {
 													<Input
 														// className='form-control-alternative'
 														// defaultValue={user.username}
-														value = {user.username}
+														value={user.username}
 														id='input-username'
 														placeholder='Username'
 														type='text'
@@ -165,7 +168,9 @@ const Profile = () => {
 													<Input
 														// className='form-control-alternative'
 														id='input-email'
-														value = {user.userObject[0].doctor.email}
+														value={
+															user.userObject[0].doctor.email
+														}
 														placeholder='name@example.com'
 														type='email'
 														disabled
@@ -185,7 +190,9 @@ const Profile = () => {
 													<Input
 														// className='form-control-alternative'
 														// defaultValue='John'
-														value = {user.userObject[0].doctor.firstName}
+														value={
+															user.userObject[0].doctor.firstName
+														}
 														id='input-first-name'
 														placeholder='First name'
 														type='text'
@@ -204,7 +211,9 @@ const Profile = () => {
 													<Input
 														// className='form-control-alternative'
 														// defaultValue='Doe'
-														value = {user.userObject[0].doctor.lastName}
+														value={
+															user.userObject[0].doctor.lastName
+														}
 														id='input-last-name'
 														placeholder='Last name'
 														type='text'
@@ -232,7 +241,9 @@ const Profile = () => {
 													<Input
 														// className='form-control-alternative'
 														// defaultValue='Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09'
-														value = {user.userObject[0].doctor.address}
+														value={
+															user.userObject[0].doctor.address
+														}
 														id='input-address'
 														placeholder='Home Address'
 														type='text'

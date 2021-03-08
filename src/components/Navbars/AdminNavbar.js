@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // reactstrap components
 import {
@@ -17,11 +19,24 @@ import { useAuthContext, useMutateAuthContext } from '../../context/auth';
 const AdminNavbar = (props) => {
 	const { updateAuthState } = useMutateAuthContext();
 	const { rememberMe } = useAuthContext();
+	const userObject = useAuthContext();
+	// const [username, setUsername] = useState();
+	// useEffect(() => {
+	// 	if (userObject.fetching === false && userObject.user) {
+	// 	}
+	// }, [userObject.fetching, userObject.user]);
 	return (
 		<>
-			<Navbar className='navbar-top navbar-dark' expand='md' id='navbar-main'>
+			<Navbar
+				className='navbar-top navbar-dark'
+				expand='md'
+				id='navbar-main'
+			>
 				<Container fluid>
-					<Nav className='align-items-center d-none ml-auto d-md-flex' navbar>
+					<Nav
+						className='align-items-center d-none ml-auto d-md-flex'
+						navbar
+					>
 						<UncontrolledDropdown nav>
 							<DropdownToggle className='pr-0' nav>
 								<Media className='align-items-center'>
@@ -29,14 +44,21 @@ const AdminNavbar = (props) => {
 										<img
 											alt='...'
 											src={
-												require('../../assets/img/theme/team-4-800x800.jpg')
+												require('../../assets/img/user-tie-solid.svg')
 													.default
 											}
 										/>
 									</span>
 									<Media className='ml-2 d-lg-block'>
 										<span className='mb-0 text-sm font-weight-bold'>
-											Jessica Jones
+											{!userObject.fetching && userObject.user
+												? 'Dr. ' +
+												  userObject.user.userObject[0].doctor
+														.firstName +
+												  ' ' +
+												  userObject.user.userObject[0].doctor
+														.lastName
+												: ''}
 										</span>
 									</Media>
 								</Media>
@@ -49,23 +71,26 @@ const AdminNavbar = (props) => {
 									<i className='ni ni-single-02' />
 									<span>My profile</span>
 								</DropdownItem>
-								<DropdownItem to='/admin/user-profile' tag={Link}>
+								{/* <DropdownItem to='/admin/user-profile' tag={Link}>
 									<i className='ni ni-settings-gear-65' />
 									<span>Settings</span>
-								</DropdownItem>
-								<DropdownItem to='/admin/user-profile' tag={Link}>
+								</DropdownItem> 
+								 <DropdownItem to='/admin/user-profile' tag={Link}>
 									<i className='ni ni-calendar-grid-58' />
 									<span>Activity</span>
-								</DropdownItem>
+								 </DropdownItem>
 								<DropdownItem to='/admin/user-profile' tag={Link}>
 									<i className='ni ni-support-16' />
 									<span>Support</span>
-								</DropdownItem>
+								</DropdownItem> */}
 								<DropdownItem divider />
 								<DropdownItem
 									onClick={(e) => {
 										e.preventDefault();
-										updateAuthState({ user: null, token: null }, rememberMe);
+										updateAuthState(
+											{ user: null, token: null },
+											rememberMe
+										);
 									}}
 								>
 									<i className='ni ni-user-run' />
