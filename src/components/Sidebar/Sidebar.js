@@ -99,11 +99,7 @@ const Sidebar = (props) => {
 				{/* Brand */}
 				{logo ? (
 					<NavbarBrand className='pt-0' {...navbarBrandProps}>
-						<img
-							alt={logo.imgAlt}
-							className='navbar-brand-img'
-							src={logo.imgSrc}
-						/>
+						NSUT-MedApp
 					</NavbarBrand>
 				) : null}
 				{/* User */}
@@ -161,7 +157,10 @@ const Sidebar = (props) => {
 							<DropdownItem
 								onClick={(e) => {
 									e.preventDefault();
-									updateAuthState({ user: null, token: null }, rememberMe);
+									updateAuthState(
+										{ user: null, token: null },
+										rememberMe
+									);
 								}}
 							>
 								<i className='ni ni-user-run' />

@@ -26,16 +26,17 @@ function VideoChatDoctor(props) {
 	const localRef = useRef(null);
 	const [preview, setPreview] = useState(false);
 	const [connected, setConnected] = useState(false);
+	const [localRefSet, setLocalRefSet] = useState(false);
 	const [failed, setFailed] = useState(false);
 	const [notes, setNotes] = useState('');
+	const [submitted, setSubmitted] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
 	const [callFinished, setCallFinished] = useState(false);
-	// const [preview, setPreview] = useState(true);
 	const [otherParticipantConnected, setOtherParticipantConnected] = useState(
 		false
 	);
 
 	const getPreview = async () => {
-		// if (!preview) return;
 		try {
 			tracks = await createLocalTracks({
 				audio: true,
@@ -116,6 +117,12 @@ function VideoChatDoctor(props) {
 
 	const handleSubmit = async () => {
 		try {
+			if (submitting) return;
+			setSubmitting(true);
+			if (submitted || notes.trim().length === 0) {
+				setSubmitting(false);
+				throw Error();
+			}
 			await axios.post(
 				`${videoChatEndpoint}/records/create`,
 				{
@@ -128,6 +135,8 @@ function VideoChatDoctor(props) {
 					},
 				}
 			);
+			setSubmitting(false);
+			setSubmitted(true);
 			toast.success('Record saved!', {
 				position: 'top-right',
 				autoClose: 2000,
@@ -139,15 +148,21 @@ function VideoChatDoctor(props) {
 			});
 			setNotes('');
 		} catch (e) {
-			toast.error('Failed!', {
-				position: 'top-right',
-				autoClose: 2000,
-				hideProgressBar: true,
-				closeOnClick: true,
-				pauseOnHover: false,
-				draggable: false,
-				progress: undefined,
-			});
+			console.log(e);
+			toast.error(
+				`Failed! 
+			Make sure you have written some notes
+			or haven't already submitted`,
+				{
+					position: 'top-right',
+					autoClose: 2000,
+					hideProgressBar: true,
+					closeOnClick: true,
+					pauseOnHover: false,
+					draggable: false,
+					progress: undefined,
+				}
+			);
 		}
 	};
 
@@ -177,8 +192,12 @@ function VideoChatDoctor(props) {
 				console.log('Failed');
 			}
 		};
-		if (localRef.current !== null && id && jwtUserToken.token) createRoom();
-	}, [localRef, id, jwtUserToken.token]);
+		// console.log(localRef.current);
+		console.log(id);
+		console.log(jwtUserToken.token);
+		console.log('-------------');
+		if (localRefSet && id && jwtUserToken.token) createRoom();
+	}, [localRefSet, id, jwtUserToken.token]);
 
 	return jwtUserToken.fetching ? (
 		<main className={styles.loadingDiv}>
@@ -240,7 +259,9 @@ function VideoChatDoctor(props) {
 						className={styles.localContainer}
 						ref={localRef}
 						style={preview ? {} : { opacity: '0' }}
-					></div>
+					>
+						{!localRefSet ? setLocalRefSet(true) : null}
+					</div>
 				</div>
 				<div className={styles.notesContainer}>
 					<form className={styles.notesForm}>
@@ -258,11 +279,14 @@ function VideoChatDoctor(props) {
 							value={notes}
 							onChange={(e) => setNotes(e.target.value)}
 						/>
-						{callFinished ? (
+						{callFinished && otherParticipantConnected ? (
 							<button
 								type='submit'
 								className='mt-3 btn btn-primary btn-md'
-								onClick={handleSubmit}
+								onClick={(e) => {
+									e.preventDefault();
+									handleSubmit();
+								}}
 							>
 								Submit Notes
 							</button>

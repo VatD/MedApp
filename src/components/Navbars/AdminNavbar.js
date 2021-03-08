@@ -1,6 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // reactstrap components
 import {
@@ -20,11 +18,6 @@ const AdminNavbar = (props) => {
 	const { updateAuthState } = useMutateAuthContext();
 	const { rememberMe } = useAuthContext();
 	const userObject = useAuthContext();
-	// const [username, setUsername] = useState();
-	// useEffect(() => {
-	// 	if (userObject.fetching === false && userObject.user) {
-	// 	}
-	// }, [userObject.fetching, userObject.user]);
 	return (
 		<>
 			<Navbar
