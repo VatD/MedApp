@@ -9,17 +9,17 @@ import AddPatient from './views/examples/AddPatient.js';
 
 var routes = [
 	{
-		path: '/index',
-		name: 'Dashboard',
-		icon: 'ni ni-tv-2 text-primary',
-		component: Index,
-		layout: '/admin',
-	},
-	{
 		path: '/profile',
 		name: 'Profile',
 		icon: 'ni ni-single-02 text-yellow',
 		component: Profile,
+		layout: '/admin',
+	},
+	{
+		path: '/patients',
+		name: 'View Patients',
+		icon: 'ni ni-tv-2 text-primary',
+		component: Index,
 		layout: '/admin',
 	},
 	{

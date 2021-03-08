@@ -98,7 +98,7 @@ const AddPatient = () => {
 											token
 										);
 										setSubmitting(false);
-										if (data) history.replace('/admin/index');
+										if (data) history.replace('/admin/patients');
 										if (error?.response?.data?.fieldErrors) {
 											setErrors(error.response.data.fields);
 											setError('Check your input data.');
