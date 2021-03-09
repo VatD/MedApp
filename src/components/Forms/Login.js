@@ -71,7 +71,7 @@ function LoginForm({ formik }) {
 					name='rememberMe'
 				/>
 				<label className='custom-control-label' htmlFor='rememberMe'>
-					<span className='text-muted'>Remember me</span>
+					<span className='text-muted'>keep me signed in</span>
 				</label>
 			</div>
 			<div className='text-center'>

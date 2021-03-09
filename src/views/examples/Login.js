@@ -103,7 +103,7 @@ const Login = () => {
 										{ user: user.user, token: user.jwt },
 										values.rememberMe
 									);
-									history.replace('/admin/index');
+									history.replace('/admin/profile');
 									return;
 								}
 								if (error) {
