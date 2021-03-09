@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import classnames from 'classnames';
 // import Chart from 'chart.js';
 // import { Line, Bar } from 'react-chartjs-2';
@@ -15,6 +15,12 @@ import {
 	Container,
 	Row,
 	Col,
+	Form,
+	FormGroup,
+	InputGroup,
+	InputGroupAddon,
+	InputGroupText,
+	Input,
 } from 'reactstrap';
 // import {
 // 	chartOptions,
@@ -29,6 +35,7 @@ import Skeleton from 'react-loading-skeleton';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import PatientModal from '../components/Modals/PatientModal';
 
 const patientFetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -54,6 +61,15 @@ const Index = (props) => {
 		patientFetcher
 	);
 
+	let patientsToShow = patients;
+
+	const [modalState, setModalState] = useState({
+		open: false,
+		patientId: null,
+	});
+
+	const [searchInput, setSearchInput] = useState('');
+
 	useEffect(() => {
 		if (patientsError)
 			toast.error('Error in fetching patients!', {
@@ -67,12 +83,43 @@ const Index = (props) => {
 			});
 	}, [patientsError]);
 
+	if (patients) {
+		patientsToShow = patients.filter((patient) => {
+			return (
+				`${patient.firstName} ${patient.lastName}`
+					.toLowerCase()
+					.includes(searchInput.toLowerCase()) ||
+				patient.email.toLowerCase().includes(searchInput.toLowerCase())
+			);
+		});
+	}
+
 	return (
 		<>
 			<ToastContainer />
 			<Header />
 			{/* Page content */}
-			<Container className='mt--7' fluid>
+			<Container className='mt-5' fluid>
+				<Form
+					autoCorrect='off'
+					className='form-inline navbar-search navbar-search'
+				>
+					<FormGroup className='mb-0 ml-auto'>
+						<InputGroup className='input-group-alternative'>
+							<InputGroupAddon addonType='prepend'>
+								<InputGroupText>
+									<i className='fas fa-search' />
+								</InputGroupText>
+							</InputGroupAddon>
+							<Input
+								value={searchInput}
+								onChange={(e) => setSearchInput(e.target.value)}
+								placeholder='Search Your Patients'
+								type='text'
+							/>
+						</InputGroup>
+					</FormGroup>
+				</Form>
 				{/* <Row>
 					<Col className='mb-5 mb-xl-0' xl='8'>
 						<Card className='bg-gradient-default shadow'>
@@ -180,15 +227,17 @@ const Index = (props) => {
 									</tr>
 								</thead>
 								<tbody>
-									{patients
-										? patients.map((patient, key) => {
+									{patientsToShow
+										? patientsToShow.map((patient, key) => {
 												return (
 													<tr key={key}>
 														<td>
 															<Button
 																color='primary'
 																size='sm'
-																onClick={() => console.log(key)}
+																onClick={() =>
+																	setModalState({ open: true, patientId: key })
+																}
 															>
 																View
 															</Button>
@@ -207,11 +256,21 @@ const Index = (props) => {
 										: [...Array(5)].map((key) => {
 												return (
 													<tr key={key}>
-														<td><Skeleton /></td>
-														<td><Skeleton /></td>
-														<td><Skeleton /></td>
-														<td><Skeleton /></td>
-														<td><Skeleton /></td>
+														<td>
+															<Skeleton />
+														</td>
+														<td>
+															<Skeleton />
+														</td>
+														<td>
+															<Skeleton />
+														</td>
+														<td>
+															<Skeleton />
+														</td>
+														<td>
+															<Skeleton />
+														</td>
 													</tr>
 												);
 										  })}
@@ -221,6 +280,19 @@ const Index = (props) => {
 					</Col>
 				</Row>
 			</Container>
+			<PatientModal
+				open={modalState.open}
+				patient={
+					modalState.patientId !== null
+						? patientsToShow[modalState.patientId]
+						: {}
+				}
+				toggler={() =>
+					setModalState((prevState) => {
+						return { ...prevState, open: false };
+					})
+				}
+			/>
 		</>
 	);
 };
