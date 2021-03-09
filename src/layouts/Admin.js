@@ -63,6 +63,11 @@ const Admin = (props) => {
 				<AdminNavbar
 					{...props}
 					brandText={getBrandText(props.location.pathname)}
+					logo={{
+					innerLink: '/admin/index',
+					imgSrc: require('../assets/img/brand/argon-react.png').default,
+					imgAlt: '...',
+				}}
 				/>
 				<Switch>
 					{getRoutes(routes)}
