@@ -14,7 +14,7 @@ const Footer = () => {
 				<Col xl='6'>
 					<div className='copyright text-center text-xl-left text-muted'>
 						© {new Date().getFullYear()}{' '}
-							<Link to ="/admin/index">
+							<Link to ="/">
 								MedApp
 							</Link>
 					</div>
