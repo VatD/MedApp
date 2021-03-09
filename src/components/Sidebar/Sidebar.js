@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavLink as NavLinkRRD, Link } from 'react-router-dom';
 // nodejs library to set properties for components
 import { PropTypes } from 'prop-types';
-
+import './Sidebar.css'
 // reactstrap components
 import {
 	Button,
@@ -81,6 +81,8 @@ const Sidebar = (props) => {
 		};
 	}
 
+	const font = "'Alfa Slab One', cursive";
+
 	return (
 		<Navbar
 			className='navbar-vertical fixed-left navbar-light bg-white'
@@ -99,26 +101,15 @@ const Sidebar = (props) => {
 				{/* Brand */}
 				{logo ? (
 					<NavbarBrand className='pt-0' {...navbarBrandProps}>
-						NSUT-MedApp
+						<span style={{color: "#11cdef"}}>
+							<i class="fas fa-stethoscope fa-2x"></i>
+							<span style={{fontFamily: font , fontSize : "2rem",paddingLeft: "3px"}}>medApp</span>
+							
+						</span>
 					</NavbarBrand>
 				) : null}
 				{/* User */}
 				<Nav className='align-items-center d-md-none'>
-					<UncontrolledDropdown nav>
-						<DropdownToggle nav className='nav-link-icon'>
-							<i className='ni ni-bell-55' />
-						</DropdownToggle>
-						<DropdownMenu
-							aria-labelledby='navbar-default_dropdown_1'
-							className='dropdown-menu-arrow'
-							right
-						>
-							<DropdownItem>Action</DropdownItem>
-							<DropdownItem>Another action</DropdownItem>
-							<DropdownItem divider />
-							<DropdownItem>Something else here</DropdownItem>
-						</DropdownMenu>
-					</UncontrolledDropdown>
 					<UncontrolledDropdown nav>
 						<DropdownToggle nav>
 							<Media className='align-items-center'>
@@ -140,18 +131,6 @@ const Sidebar = (props) => {
 							<DropdownItem to='/admin/user-profile' tag={Link}>
 								<i className='ni ni-single-02' />
 								<span>My profile</span>
-							</DropdownItem>
-							<DropdownItem to='/admin/user-profile' tag={Link}>
-								<i className='ni ni-settings-gear-65' />
-								<span>Settings</span>
-							</DropdownItem>
-							<DropdownItem to='/admin/user-profile' tag={Link}>
-								<i className='ni ni-calendar-grid-58' />
-								<span>Activity</span>
-							</DropdownItem>
-							<DropdownItem to='/admin/user-profile' tag={Link}>
-								<i className='ni ni-support-16' />
-								<span>Support</span>
 							</DropdownItem>
 							<DropdownItem divider />
 							<DropdownItem
@@ -176,15 +155,12 @@ const Sidebar = (props) => {
 						<Row>
 							{logo ? (
 								<Col className='collapse-brand' xs='6'>
-									{logo.innerLink ? (
-										<Link to={logo.innerLink}>
-											<img alt={logo.imgAlt} src={logo.imgSrc} />
-										</Link>
-									) : (
-										<a href={logo.outterLink}>
-											<img alt={logo.imgAlt} src={logo.imgSrc} />
-										</a>
-									)}
+								<NavbarBrand className='pt-0' {...navbarBrandProps}>
+									<span style={{color: "#11cdef"}}>
+										<i class="fas fa-stethoscope fa-2x"></i>
+										<span style={{fontFamily: font ,fontSize : "2rem",paddingLeft: "3px"}}>medApp</span>
+									</span>
+								</NavbarBrand>
 								</Col>
 							) : null}
 							<Col className='collapse-close' xs='6'>

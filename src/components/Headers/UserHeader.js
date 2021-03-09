@@ -25,7 +25,7 @@ const UserHeader = () => {
 				<Container className='d-flex align-items-center' fluid>
 					<Row>
 						<Col lg='12'>
-							<h1 className='display-1 text-white'>Hello {user.username}</h1>
+							<h1 className='display-1 text-white'>Hello {user.userObject[0].doctor.firstName}</h1>
 							<p className='text-white mt-0 mb-5'>
 								Welcome doctor! View your profile here.
 							</p>

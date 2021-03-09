@@ -65,23 +65,9 @@ const Profile = () => {
 							<CardBody className='pt-0 pt-md-4'>
 								<Row>
 									<div className='col'>
-										{/* <div className='card-profile-stats d-flex justify-content-center mt-md-5'>
-											<div>
-												<span className='heading'>22</span>
-												<span className='description'>Connections</span>
-											</div>
-											<div>
-												<span className='heading'>10</span>
-												<span className='description'>Photos</span>
-											</div>
-											<div>
-												<span className='heading'>89</span>
-												<span className='description'>Comments</span>
-											</div>
-										</div> */}
 									</div>
 								</Row>
-								<div className='text-center mt-5'>
+								<div className='text-center mt-6'>
 									<h3>
 										Dr. {user.userObject[0].doctor.firstName}{' '}
 										{user.userObject[0].doctor.lastName}
@@ -114,24 +100,14 @@ const Profile = () => {
 					</Col>
 					<Col className='order-xl-1' xl='8'>
 						<Card className='bg-secondary shadow'>
-							<CardHeader className='bg-white border-0'>
+							<CardHeader className='bg-white border-0' id='profile'>
 								<Row className='align-items-center'>
 									<Col xs='8'>
 										<h3 className='mb-0'>My account</h3>
 									</Col>
-									{/* <Col className='text-right' xs='4'>
-										<Button
-											color='primary'
-											href='#pablo'
-											onClick={(e) => e.preventDefault()}
-											size='sm'
-										>
-											Settings
-										</Button>
-									</Col> */}
 								</Row>
 							</CardHeader>
-							<CardBody id='profile'>
+							<CardBody>
 								<Form>
 									<h6 className='heading-small text-muted mb-4'>
 										User information
