@@ -41,7 +41,7 @@ In the times of Covid-19, a lot of OPD sessions are carried out online and yet m
 
 -  You can take notes while the session is going on and once it ends, a Submit Notes button becomes active. You can submit your notes and you will be redirected to the profile page meanwhile your patient will get the notes you wrote in their email.
 
-![PatientEmailNotes](/src/assets/img/readme/notes.jpg)
+![PatientEmailNotes](/src/assets/img/readme/notes.png)
 
 # 📝 Further repositories of the project
 
