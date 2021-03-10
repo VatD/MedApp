@@ -25,7 +25,7 @@ const Profile = () => {
 	// if (aboutPresent !== "") {
 	//   about = <p>{user.userObject[0].doctor.about}</p>;
 	// }
-	const insPresent = user.userObject[0].doctor.hospital;
+	const insPresent = user?.userObject[0].doctor.hospital;
 	let institute;
 	if (insPresent !== '') {
 		institute = (
@@ -69,19 +69,19 @@ const Profile = () => {
 								</Row>
 								<div className='text-center mt-6'>
 									<h3>
-										Dr. {user.userObject[0].doctor.firstName}{' '}
-										{user.userObject[0].doctor.lastName}
+										Dr. {user?.userObject[0].doctor.firstName}{' '}
+										{user?.userObject[0].doctor.lastName}
 										<span className='font-weight-light'>
-											, {user.userObject[0].doctor.age}
+											, {user?.userObject[0].doctor.age}
 										</span>
 									</h3>
 									<div className='h5 font-weight-300'>
 										<i className='ni location_pin mr-2' />
-										{user.userObject[0].doctor.address}
+										{user?.userObject[0].doctor.address}
 									</div>
 									<div className='h5 mt-4'>
 										<i className='ni business_briefcase-24 mr-2' />
-										{user.userObject[0].doctor.department}
+										{user?.userObject[0].doctor.department}
 									</div>
 									{institute}
 									{/* <hr className='my-4' />
@@ -125,7 +125,7 @@ const Profile = () => {
 													<Input
 														// className='form-control-alternative'
 														// defaultValue={user.username}
-														value={user.username}
+														value={user?.username}
 														id='input-username'
 														placeholder='Username'
 														type='text'
@@ -145,7 +145,7 @@ const Profile = () => {
 														// className='form-control-alternative'
 														id='input-email'
 														value={
-															user.userObject[0].doctor.email
+															user?.userObject[0].doctor.email
 														}
 														placeholder='name@example.com'
 														type='email'
@@ -167,7 +167,7 @@ const Profile = () => {
 														// className='form-control-alternative'
 														// defaultValue='John'
 														value={
-															user.userObject[0].doctor.firstName
+															user?.userObject[0].doctor.firstName
 														}
 														id='input-first-name'
 														placeholder='First name'
@@ -188,7 +188,7 @@ const Profile = () => {
 														// className='form-control-alternative'
 														// defaultValue='Doe'
 														value={
-															user.userObject[0].doctor.lastName
+															user?.userObject[0].doctor.lastName
 														}
 														id='input-last-name'
 														placeholder='Last name'
@@ -218,7 +218,7 @@ const Profile = () => {
 														// className='form-control-alternative'
 														// defaultValue='Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09'
 														value={
-															user.userObject[0].doctor.address
+															user?.userObject[0].doctor.address
 														}
 														id='input-address'
 														placeholder='Home Address'

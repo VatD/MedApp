@@ -46,10 +46,10 @@ const AdminNavbar = (props) => {
 										<span className='mb-0 text-sm font-weight-bold'>
 											{!userObject.fetching && userObject.user
 												? 'Dr. ' +
-												  userObject.user.userObject[0].doctor
+												  userObject.user?.userObject[0].doctor
 														.firstName +
 												  ' ' +
-												  userObject.user.userObject[0].doctor
+												  userObject.user?.userObject[0].doctor
 														.lastName
 												: ''}
 										</span>
