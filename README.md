@@ -31,11 +31,11 @@ In the times of Covid-19, a lot of OPD sessions are carried out online and yet m
 
 -  You can start a session with one of your patients by clicking on the View button besides their record and then clicking on Start Session.
 
-![ViewPatientModal](/src/assets/img/readme/indPatient)
+![ViewPatientModal](/src/assets/img/readme/indPatient.png)
 
 -  When the VideoChat page is opened you are automatically entered into a room and your patient is sent an email with a link to join the video chat.
 
-![VideoChatPage](/src/assets/img/readme/)
+![VideoChatPage](/src/assets/img/readme/video.jpg)
 
 ![PatientEmailLink](/src/assets/img/readme/joinLink.jpg)
 
