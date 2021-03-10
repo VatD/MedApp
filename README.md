@@ -17,7 +17,7 @@ In the times of Covid-19, a lot of OPD sessions are carried out online and yet m
 ![LoginPage](/src/assets/img/readme/login.png)
 
 -  Login as one of the doctors. (Refer the doc linked at the end if you are a judge of the hackathon.)
--  You should then see the profile page that likes this:
+-  You should then see the profile page that looks likes this:
 
 ![ProfilePage](/src/assets/img/readme/profile.png)
 
