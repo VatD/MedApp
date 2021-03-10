@@ -51,4 +51,4 @@ In the times of Covid-19, a lot of OPD sessions are carried out online and yet m
 
 # For Judges of InnovateNSUT 2021
 
-[Further Details]()
+[Further Details](https://drive.google.com/file/d/1vHvobvnBGQDlPTc-K89k81ZHIavu370_/view?usp=sharing)
