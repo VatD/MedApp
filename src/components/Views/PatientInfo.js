@@ -38,7 +38,7 @@ const PatientInfo = ({ patient }) => {
 			<Row className='my-3'>
 				<Col sm={6}>
 					<span className='h3 mb-0 text-muted mr-1'>Height : </span>
-					<span className='font-weight-bold'>{patient.height} mts</span>
+					<span className='font-weight-bold'>{patient.height} cms</span>
 				</Col>
 				<Col sm={6}>
 					<span className='h3 mb-0 text-muted mr-1'>Weight : </span>
@@ -66,6 +66,19 @@ const PatientInfo = ({ patient }) => {
 						{patient.ailments}
 					</p>
 				</Col>
+				{patient.recommendations?.length > 0 ? (
+					<Col sm={12}>
+						<h3 className='mb-1'>Auto Medical Diagnosis</h3>
+						{patient.recommendations.map((rec, i) => {
+							return (
+								<p key={i} className='mb-0 font-weight-normal'>
+									{rec}
+								</p>
+							);
+						})}
+						<div className='py-2'></div>
+					</Col>
+				) : null}
 				<Col sm={12}>
 					<h3 className='mb-0'>Medicines</h3>
 					<p className='border font-weight-normal p-3 rounded rounded-3'>

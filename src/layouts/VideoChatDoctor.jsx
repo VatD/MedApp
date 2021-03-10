@@ -3,14 +3,13 @@ import axios from 'axios';
 import { connect, createLocalTracks } from 'twilio-video';
 import styles from './VideoChatDoctor.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
+import { faPhoneSlash, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useAuthContext } from '../context/auth';
 import { Redirect, useHistory } from 'react-router';
-import Loading from '../assets/img/loading.svg';
-import LoadingGrey from '../assets/img/loadingGrey.svg';
+import LoadingRing from '../assets/img/loadingRing.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './globals.css';
+import { Button } from 'reactstrap';
 
 const videoChatEndpoint = 'https://medicalappapinsut.herokuapp.com';
 var room;
@@ -202,8 +201,8 @@ function VideoChatDoctor(props) {
 	}, [localRefSet, id, jwtUserToken.token]);
 
 	return jwtUserToken.fetching ? (
-		<main className={styles.loadingDiv}>
-			<img src={Loading} alt='loading...' />
+		<main className={styles.stretchNCenter}>
+			<img src={LoadingRing} alt='loading...' />
 		</main>
 	) : jwtUserToken.token ? (
 		<main>
@@ -234,28 +233,24 @@ function VideoChatDoctor(props) {
 						ref={remoteRef}
 					>
 						{!otherParticipantConnected && !failed ? (
-							<img src={LoadingGrey} alt='loading' />
+							<img src={LoadingRing} alt='loading' />
 						) : null}
 					</div>
 					<div className={`${styles.toolbar}`}>
 						{connected ? (
-							<button
-								onClick={() => stopCall()}
-								style={{
-									backgroundColor: 'red',
-									borderRadius: '50%',
-									width: '50px',
-									height: '50px',
-								}}
-							>
+							<Button color='danger' type='button' onClick={() => stopCall()}>
+								<FontAwesomeIcon icon={faPhoneSlash} color='white' />
+							</Button>
+						) : (
+							<Button color='warning' type='button'>
 								<FontAwesomeIcon
-									icon={faPhoneSlash}
-									style={{ color: 'white' }}
+									icon={faSpinner}
+									color='white'
+									className={styles.rotatingAnimation}
 								/>
-							</button>
-						) : null}
+							</Button>
+						)}
 					</div>
-
 					<div
 						id='local-container'
 						className={styles.localContainer}
@@ -267,17 +262,12 @@ function VideoChatDoctor(props) {
 				</div>
 				<div className={styles.notesContainer}>
 					<form className={styles.notesForm}>
-						<label
-							htmlFor='notes-input'
-							className={`heading-small text-muted ${styles.notesLabel}`}
-						>
-							Notes:
+						<label htmlFor='notes-input' className='lead'>
+							Report
 						</label>
 						<textarea
-							className={
-								`form-control form-control ${styles.notesInput}` +
-								(notes.length === 0 ? ' is-invalid' : '')
-							}
+							id='notes-input'
+							className={styles.notesInput + ' border border-primary'}
 							value={notes}
 							onChange={(e) => setNotes(e.target.value)}
 						/>

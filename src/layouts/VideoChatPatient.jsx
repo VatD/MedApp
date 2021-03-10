@@ -3,9 +3,9 @@ import axios from 'axios';
 import { connect, createLocalTracks } from 'twilio-video';
 import styles from './VideoChatPatient.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
-import LoadingGrey from '../assets/img/loadingGrey.svg';
-import './globals.css';
+import { faPhoneSlash, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import LoadingRing from '../assets/img/loadingRing.svg';
+import { Button } from 'reactstrap';
 
 const videoChatEndpoint = 'https://medicalappapinsut.herokuapp.com';
 var room;
@@ -137,40 +137,29 @@ function VideoChatPatient(props) {
 							ref={remoteRef}
 						>
 							{!connected && !failed ? (
-								<img src={LoadingGrey} alt='loading' />
+								<img src={LoadingRing} alt='loading' />
 							) : failed ? (
 								<h1>Couldn't connect you!</h1>
 							) : null}
 						</div>
 						<div className={styles.toolbar} id='toolbar'>
 							{connected ? (
-								<button
-									onClick={() => stopCall()}
-									style={{
-										backgroundColor: 'red',
-										borderRadius: '50%',
-										width: '50px',
-										height: '50px',
-									}}
-								>
+								<Button color='danger' type='button' onClick={() => stopCall()}>
+									<FontAwesomeIcon icon={faPhoneSlash} color='white' />
+								</Button>
+							) : (
+								<Button color='warning' type='button'>
 									<FontAwesomeIcon
-										icon={faPhoneSlash}
-										style={{ color: 'white' }}
+										icon={faSpinner}
+										color='white'
+										className={styles.rotatingAnimation}
 									/>
-								</button>
-							) : null}
+								</Button>
+							)}
 						</div>
 					</>
 				) : (
-					<div
-						style={{
-							width: '100%',
-							height: '100vh',
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-						}}
-					>
+					<div className={styles.stretchNCenter}>
 						<button
 							className='mt-3 btn btn-primary btn-md'
 							onClick={() => setInteracted(true)}
