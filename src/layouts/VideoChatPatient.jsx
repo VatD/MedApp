@@ -20,6 +20,7 @@ function VideoChatPatient(props) {
 	const [connected, setConnected] = useState(false);
 	const [failed, setFailed] = useState(false);
 	const [preview, setPreview] = useState(false);
+	const [interacted, setInteracted] = useState(false);
 
 	const getPreview = async () => {
 		try {
@@ -121,41 +122,63 @@ function VideoChatPatient(props) {
 			}
 		};
 
-		if (localRef.current !== null && roomName) joinRoom();
-	}, [localRef, roomName]);
+		if (interacted && localRef.current !== null && roomName) joinRoom();
+	}, [localRef, roomName, interacted]);
 
 	return (
 		<main className={styles.holdingContainer}>
 			<div className={styles.videoContainer}>
-				<div
-					id='remote-container'
-					className={styles.remoteContainer}
-					ref={remoteRef}
-				>
-					{!connected && !failed ? (
-						<img src={LoadingGrey} alt='loading' />
-					) : failed ? (
-						<h1>Couldn't connect you!</h1>
-					) : null}
-				</div>
-				<div className={styles.toolbar} id='toolbar'>
-					{connected ? (
-						<button
-							onClick={() => stopCall()}
-							style={{
-								backgroundColor: 'red',
-								borderRadius: '50%',
-								width: '50px',
-								height: '50px',
-							}}
+				{interacted ? (
+					<>
+						{' '}
+						<div
+							id='remote-container'
+							className={styles.remoteContainer}
+							ref={remoteRef}
 						>
-							<FontAwesomeIcon
-								icon={faPhoneSlash}
-								style={{ color: 'white' }}
-							/>
+							{!connected && !failed ? (
+								<img src={LoadingGrey} alt='loading' />
+							) : failed ? (
+								<h1>Couldn't connect you!</h1>
+							) : null}
+						</div>
+						<div className={styles.toolbar} id='toolbar'>
+							{connected ? (
+								<button
+									onClick={() => stopCall()}
+									style={{
+										backgroundColor: 'red',
+										borderRadius: '50%',
+										width: '50px',
+										height: '50px',
+									}}
+								>
+									<FontAwesomeIcon
+										icon={faPhoneSlash}
+										style={{ color: 'white' }}
+									/>
+								</button>
+							) : null}
+						</div>
+					</>
+				) : (
+					<div
+						style={{
+							width: '100%',
+							height: '100vh',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+						}}
+					>
+						<button
+							className='mt-3 btn btn-primary btn-md'
+							onClick={() => setInteracted(true)}
+						>
+							Start
 						</button>
-					) : null}
-				</div>
+					</div>
+				)}
 				<div
 					id='local-container'
 					className={styles.localContainer}

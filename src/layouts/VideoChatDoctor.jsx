@@ -5,7 +5,7 @@ import styles from './VideoChatDoctor.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneSlash } from '@fortawesome/free-solid-svg-icons';
 import { useAuthContext } from '../context/auth';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import Loading from '../assets/img/loading.svg';
 import LoadingGrey from '../assets/img/loadingGrey.svg';
 import { ToastContainer, toast } from 'react-toastify';
@@ -21,6 +21,7 @@ var tracks;
 function VideoChatDoctor(props) {
 	const id = props.match.params.id;
 	const jwtUserToken = useAuthContext();
+	const history = useHistory();
 	// const jwtUserToken = { token: 'abc' };
 	const remoteRef = useRef(null);
 	const localRef = useRef(null);
@@ -147,8 +148,9 @@ function VideoChatDoctor(props) {
 				progress: undefined,
 			});
 			setNotes('');
+			history.push('/admin/patients');
 		} catch (e) {
-			console.log(e);
+			//console.log(e);
 			toast.error(
 				`Failed! 
 			Make sure you have written some notes
@@ -193,9 +195,9 @@ function VideoChatDoctor(props) {
 			}
 		};
 		// console.log(localRef.current);
-		console.log(id);
-		console.log(jwtUserToken.token);
-		console.log('-------------');
+		//console.log(id);
+		// console.log(jwtUserToken.token);
+		// console.log('-------------');
 		if (localRefSet && id && jwtUserToken.token) createRoom();
 	}, [localRefSet, id, jwtUserToken.token]);
 
