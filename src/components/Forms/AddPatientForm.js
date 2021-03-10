@@ -160,7 +160,7 @@ function AddPatientForm({ formik }) {
 									type='number'
 									{...formik.getFieldProps('height')}
 								/>
-								<InputGroupText>mts</InputGroupText>
+								<InputGroupText>cms</InputGroupText>
 							</InputGroup>
 							{formik.touched.height && formik.errors.height ? (
 								<FormFeedback valid={false} className='d-block'>
