@@ -9,7 +9,11 @@ import AuthLayout from './layouts/Auth.js';
 
 import VideoChatDoctor from './layouts/VideoChatDoctor';
 import VideoChatPatient from './layouts/VideoChatPatient';
-import { useAuthContext } from './context/auth';
+
+//temporary region for auto login to karandoc
+import { useAuthContext, useMutateAuthContext } from './context/auth';
+import { login } from './services/user';
+//---------------------------------------------------------
 
 const Routes = () => {
 	const { user, fetching } = useAuthContext();
@@ -48,6 +52,29 @@ const Routes = () => {
 };
 
 function App() {
+	
+	//temporary region for auto login to karandoc
+	const { user, fetching } = useAuthContext();
+	const { updateAuthState } = useMutateAuthContext();
+	
+	if(!fetching && !user){
+		login({
+			identifier: 'karan',
+			password: 'karandoc',
+		}).then(
+			({user, error})=>{
+			if (user) {
+				updateAuthState(
+					{ user: user.user, token: user.jwt },
+					true
+				);
+				}
+			}
+		);
+		return <h1>Loading</h1>;	
+	}
+	//---------------------------------------------------------------
+
 	return (
 		<BrowserRouter>
 			<Switch>
